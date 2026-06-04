@@ -1,11 +1,8 @@
 "use client"
 
 import {
-    IconCreditCard,
     IconDotsVertical,
     IconLogout,
-    IconNotification,
-    IconUserCircle,
 } from "@tabler/icons-react"
 
 import {
@@ -28,7 +25,6 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar"
-import { LogoutButton } from "./logout-button"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 

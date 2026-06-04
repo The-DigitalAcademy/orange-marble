@@ -11,17 +11,18 @@ import {
 import { Textarea } from "./ui/textarea"
 import { useState } from "react";
 import { setSubmissionComment } from "@/lib/actions";
+import { useDebouncedCallback } from "use-debounce";
 
 export function CommentPopoverForm({ value, submissionId }: { value?: string, submissionId: string }) {
 
     const [comment, setComment] = useState(value);
-    const [updated, setUpdated] = useState(false)
+
+    const handleCommentUpdate = useDebouncedCallback(() => {
+        setSubmissionComment(submissionId, comment || "")
+    }, 300)
 
     return (
-        <Popover onOpenChange={(open) => {
-            if (!open && updated == false) setComment(value)
-            if (open) setUpdated(false)
-        }}>
+        <Popover>
             <PopoverTrigger>
                 <p className="whitespace-nowrap max-w-30 truncate">{comment || <span className='text-transparent'>empty</span>}</p>
             </PopoverTrigger>
@@ -31,17 +32,12 @@ export function CommentPopoverForm({ value, submissionId }: { value?: string, su
                 </PopoverHeader>
                 <Field>
                     <Textarea
-                        onChange={(e) => setComment(e.target.value)}
+                        onChange={(e) => {
+                            setComment(e.target.value)
+                            handleCommentUpdate()
+                        }}
                         value={comment}
                         placeholder="Type your comment here." />
-                    <Button
-                        onClick={() => setSubmissionComment(submissionId, comment || "")
-                            .then(() => setUpdated(true))
-                            .catch(() => setUpdated(false))
-                        }
-                    >
-                        save changes
-                    </Button>
                 </Field>
             </PopoverContent>
         </Popover>

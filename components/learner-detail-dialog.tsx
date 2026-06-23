@@ -41,7 +41,7 @@ export function LearnerDetailDialog({ name, records }: { name: string, records: 
                     <DialogTitle>{name}</DialogTitle>
                     <DialogDescription>
                         <p className="mb-2">{records[0].groupname}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-700">
+                        <div className="flex items-center gap-4 text-sm text-gray-700 dark:text-gray-400">
                             <div>On Time: {ontime}</div>
                             <Separator orientation='vertical' />
                             <div>Late: {late}</div>
@@ -59,11 +59,11 @@ export function LearnerDetailDialog({ name, records }: { name: string, records: 
                         const dueDate = record?.duedate ? new Date(record?.duedate * 1000) : null
                         return (
                             <Card className="h-30 rounded-lg justify-between pt-0 overflow-visible">
-                                <CardHeader className="bg-slate-50 pt-4 border-b relative">
+                                <CardHeader className="bg-slate-50 pt-4 border-b relative dark:text-white dark:bg-black/50">
                                     <Badge variant={"secondary"} className="absolute -left-2 -top-2 text-[10px] border">{index + 1}</Badge>
                                     <CardTitle className="truncate text-sm" title={record.activityname}>{record.activityname}</CardTitle>
                                 </CardHeader>
-                                <CardContent>
+                                <CardContent className="h-full">
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-1">
                                             <Badge

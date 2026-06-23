@@ -150,7 +150,7 @@ export async function fetchDashboardMetrics() {
     const autograder = await fetchAutograderLogs()
     metrics.autograder.successRate = (autograder.filter(i => i.status == 'success').length / autograder.length) * 100
     metrics.autograder.failRate = (autograder.filter(i => i.status == 'fail').length / autograder.length) * 100
-    metrics.autograder.attemptAverage = autograder.reduce((acc, curr) => acc + (curr.attempt || 0), 0) / autograder.length
+    metrics.autograder.attemptAverage = autograder.reduce((acc, curr) => acc + (Number.parseInt(`${curr.attempt}`) || 0), 0) / autograder.length
 
     const reports = await fetchActivtyReports()
     metrics.learnerPerformance.groups = getFilteredListUniqueValues(reports, {}, 'groupname').length
